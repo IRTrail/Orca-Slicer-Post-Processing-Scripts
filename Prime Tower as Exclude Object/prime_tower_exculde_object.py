@@ -89,9 +89,9 @@ def create_exclude_polygon(content):
     excl_obj = (f'EXCLUDE_OBJECT_DEFINE NAME=Prime_Tower '
                 f'CENTER={center_x},{center_y}'
                 f' POLYGON[[{corners[0]},{corners[2]}],'
-                f'[{corners[1]},{corners[2]}]'
-                f'[{corners[1]},{corners[3]}]'
-                f'[{corners[0]},{corners[3]}]'
+                f'[{corners[1]},{corners[2]}],'
+                f'[{corners[1]},{corners[3]}],'
+                f'[{corners[0]},{corners[3]}],'
                 f'[{corners[0]},{corners[2]}]]\n'
                 )
 
