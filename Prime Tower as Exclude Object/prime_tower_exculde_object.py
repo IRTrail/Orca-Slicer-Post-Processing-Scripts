@@ -14,7 +14,6 @@ def read_file(read_path) -> list:
         print(f"An error occurred: {e}")
 
 
-
 def write_file(write_path, content):
     try:
         with open(write_path, 'w') as file:
@@ -25,6 +24,7 @@ def write_file(write_path, content):
 
     except Exception as e:
         print(f"An error occurred: {e}")
+
 
 def find_corners(content) -> list:
     """
@@ -40,11 +40,11 @@ def find_corners(content) -> list:
 
     for line in content:
         if x1_string in line:
-            x1 = float(line.rsplit(maxsplit=1)[-1])
+            x1 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
         if y1_string in line:
-            y1 = float(line.rsplit(maxsplit=1)[-1])
+            y1 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
         if x2_string in line:
-            x2 = float(line.rsplit(maxsplit=1)[-1])
+            x2 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
 
     x2 = x1 + x2
 
@@ -70,7 +70,7 @@ def find_prime_tower_height(content) -> float:
             in_block = True
         # exit the search at the line with end_string
         if end_string in line and in_block is True:
-            return y2
+            return round(y2, 4)
         for word in line.split():
             if in_block and re.search(r"Y\d+", word):
                 y_temp = re.search(r"(\d+(?:\.\d*)?)", word)
@@ -81,14 +81,14 @@ def find_prime_tower_height(content) -> float:
 
 def create_exclude_polygon(content):
     corners = find_corners(content)
-    center_x = (corners[0] + corners[1]) / 2
-    center_y = (corners[2] + corners[3]) / 2
+    center_x = round((corners[0] + corners[1]) / 2, 4)
+    center_y = round((corners[2] + corners[3]) / 2, 4)
 
     # the exclude polygon, if square, follows this pattern: [[x,y],[X,y],[X,Y],[x,Y],[x,y]]
     # where lower case is the smaller value and upper case is the larger value.
     excl_obj = (f'EXCLUDE_OBJECT_DEFINE NAME=Prime_Tower '
                 f'CENTER={center_x},{center_y}'
-                f' POLYGON[[{corners[0]},{corners[2]}],'
+                f' POLYGON=[[{corners[0]},{corners[2]}],'
                 f'[{corners[1]},{corners[2]}],'
                 f'[{corners[1]},{corners[3]}],'
                 f'[{corners[0]},{corners[3]}],'
