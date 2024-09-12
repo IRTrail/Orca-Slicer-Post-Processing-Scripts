@@ -45,6 +45,9 @@ def find_corners(content) -> list:
             y1 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
         if x2_string in line:
             x2 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
+        else:
+            print("No prime tower found.")
+            sys.exit(0)
 
     x2 = x1 + x2
 
