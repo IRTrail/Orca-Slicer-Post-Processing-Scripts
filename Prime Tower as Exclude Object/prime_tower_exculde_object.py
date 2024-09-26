@@ -1,5 +1,6 @@
 import re
 import sys
+import os
 
 
 def read_file(read_path) -> list:
@@ -34,9 +35,9 @@ def find_corners(content) -> list:
     x1_string = '; wipe_tower_x = '
     y1_string = '; wipe_tower_y = '
     x2_string = '; prime_tower_width = '
-    x1 = 0
-    x2 = 0
-    y1 = 0
+    x1 = ''
+    x2 = ''
+    y1 = ''
 
     for line in content:
         if x1_string in line:
@@ -45,9 +46,10 @@ def find_corners(content) -> list:
             y1 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
         if x2_string in line:
             x2 = round(float(line.rsplit(maxsplit=1)[-1]), 4)
-        else:
-            print("No prime tower found.")
-            sys.exit(0)
+
+    if x1 == '' or y1 == '' or x2 == '':
+        print("Full prime tower parameters not found.")
+        sys.exit(0)
 
     x2 = x1 + x2
 
@@ -101,7 +103,7 @@ def create_exclude_polygon(content):
     # now add the excl_obj line to the content after "; EXECUTABLE_BLOCK_START".
     for idx, line in enumerate(content, 1):
         if '; EXECUTABLE_BLOCK_START' in line:
-            idx = idx + 1
+            idx = idx
             content.insert(idx, excl_obj)
             return content
 
