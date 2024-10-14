@@ -54,6 +54,11 @@ def find_corners(content) -> list:
     x2 = x1 + x2
 
     y2 = find_prime_tower_height(content)
+
+    if y2 is None:
+        print("Prime tower not found.")
+        sys.exit(0)
+    
     return [x1, x2, y1, y2]
 
 
